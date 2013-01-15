@@ -27,7 +27,7 @@ $content = file_get_contents($_GET["url"]);
 $content = mb_convert_encoding($content, "ISO-8859-15", "WINDOWS-1252");
 $ads = Lbc_Parser::process($content, $_GET);
 
-$title = "LeBonCoin";
+$title = "Leboncoin";
 $urlParams = parse_url($_GET["url"]);
 if (!empty($urlParams["query"])) {
     parse_str($urlParams["query"], $aQuery);
