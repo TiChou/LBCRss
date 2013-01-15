@@ -39,10 +39,6 @@ if (!empty($urlParams["query"])) {
 $feeds = new FeedGenerator();
 $feeds->setGenerator(new RSSGenerator);
 $feeds->setTitle($title);
-$feeds->setChannelLink(
-    !empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on"?"https":"http".
-    "://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]
-);
 $feeds->setLink("http://www.leboncoin.fr");
 $feeds->setDescription("Flux RSS de la recherche : ".$_GET["url"]);
 
