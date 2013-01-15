@@ -61,6 +61,9 @@ class RSSGenerator implements generator{
                         case 'description':
                             $element->appendChild($this->_dom->createCDATASection($nodeValue));
                             break;
+                        case 'guid':
+                            if(!preg_match("#^https?://#", $nodeValue, $m))
+                                $element->setAttribute('isPermaLink', 'false');
                         default:
                             $element->appendChild($this->_dom->createTextNode($nodeValue));
                     }
