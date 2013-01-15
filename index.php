@@ -54,7 +54,7 @@ if (count($ads)) {
             $ad->getLink(),
             require $dirname."/view.phtml"
         );
-        $item->pubDate = gmdate("D, d M Y H:i:s O", $ad->getDate())." GMT";
+        $item->pubDate = date('D, d M Y H:i:s O');
         $feeds->addItem($item);
     }
 }
