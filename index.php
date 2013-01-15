@@ -4,7 +4,6 @@
  * @version 1.0
  */
 
-
 $dirname = dirname(__FILE__);
 
 require $dirname."/lib/feedgenerator/FeedGenerator.php";
@@ -24,8 +23,8 @@ try {
     exit;
 }
 
-
 $content = file_get_contents($_GET["url"]);
+$content = mb_convert_encoding($content, "ISO-8859-15", "WINDOWS-1252");
 $ads = Lbc_Parser::process($content, $_GET);
 
 $title = "LeBonCoin";
