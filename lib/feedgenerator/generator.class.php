@@ -1,6 +1,6 @@
 <?php
 interface Generator {
-	public function generate(Channel $channel);
-	public function generatorName();
+    public function generate(Channel $channel);
+    public function generatorName();
 }
 ?>

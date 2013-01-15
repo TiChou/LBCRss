@@ -43,8 +43,11 @@ class RSSGenerator implements generator{
                 continue;
             if (in_array($nodeName, array_keys($this->channelChanged)))
                 $nodeName= $this->channelChanged[$nodeName];
-            if(!empty($nodeValue) or in_array($nodeName, $this->channelRequired))
-                $channel->appendChild($this->_dom->createElement($nodeName, $nodeValue));
+            if(!empty($nodeValue) or in_array($nodeName, $this->channelRequired)) {
+                $element = $this->_dom->createElement($nodeName);
+                $element->appendChild($this->_dom->createTextNode($nodeValue));
+                $channel->appendChild($element);
+            }
         }
 
         foreach($this->_channel->getItems() as $item){
@@ -52,19 +55,21 @@ class RSSGenerator implements generator{
             foreach($item as $nodeName=>$nodeValue) {
                 if(in_array($nodeName, $this->itemDeleted)) continue;
                 if(in_array($nodeName, array_keys($this->itemChanged))) $nodeName=$this->itemChanged[$nodeName];
-                if($nodeName=='description'){
-                    $tmp=$i->appendChild($this->_dom->createElement($nodeName));
-                    $tmp->appendChild($this->_dom->createCDATASection($nodeValue));
-                    continue;
+                if(!empty($nodeValue) or in_array($nodeName, $this->itemRequired)) {
+                    $element = $this->_dom->createElement($nodeName);
+                    switch($nodeName) {
+                        case 'description':
+                            $element->appendChild($this->_dom->createCDATASection($nodeValue));
+                            break;
+                        default:
+                            $element->appendChild($this->_dom->createTextNode($nodeValue));
+                    }
+                    $i->appendChild($element);
                 }
-                if(!empty($nodeValue) or in_array($nodeName, $this->itemRequired))
-                    $i->appendChild($this->_dom->createElement($nodeName, $nodeValue));
             }
         }
 
         return $this->_dom->saveXML();
-
-
     }
 }
 ?>
