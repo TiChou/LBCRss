@@ -50,7 +50,7 @@ if (count($ads)) {
             $ad->getLink(),
             require $dirname."/view.phtml"
         );
-        $item->pubDate = date('D, d M Y H:i:s O');
+        $item->pubDate = date('D, d M Y H:i:s O', $ad->getDate());
         $feeds->addItem($item);
     }
 }
